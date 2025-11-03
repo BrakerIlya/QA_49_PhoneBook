@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.ContactFactory;
 import utils.HeaderMenuItem;
+import static utils.PropertiesReader.*;
 
 import static pages.BasePage.*;
 
@@ -23,8 +24,10 @@ public class AddNewContactTests extends ApplicationManager {
     public void login(){
         homePage=new HomePage(getDriver());
         loginPage= clickButtonHeader(HeaderMenuItem.LOGIN);
-        User user =new User("a@mail.ru","Password123!");
-        loginPage.typeLoginFormWithUser(user);
+//        User user =new User("a@mail.ru","Password123!");
+//        loginPage.typeLoginFormWithUser(user);
+        loginPage.typeLoginForm(getProperty("base.properties","login")
+                ,getProperty("base.properties","password"));
         contactsPage=new ContactsPage(getDriver());
         numberOfContacts=contactsPage.getNumberOfContacts();
         addPage=clickButtonHeader(HeaderMenuItem.ADD);
