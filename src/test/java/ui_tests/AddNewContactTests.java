@@ -1,19 +1,23 @@
 package ui_tests;
 
+import data_providers.Contact_DP;
 import dto.Contact;
 import dto.User;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 import utils.ContactFactory;
 import utils.HeaderMenuItem;
+import utils.TestNGListener;
+
 import static utils.PropertiesReader.*;
 
 import static pages.BasePage.*;
-
+@Listeners(TestNGListener.class)
 public class AddNewContactTests extends ApplicationManager {
     SoftAssert softAssert=new SoftAssert();
     HomePage homePage;
@@ -37,6 +41,12 @@ public class AddNewContactTests extends ApplicationManager {
     @Test
     public void addNewContactPositiveTest(){
         addPage.typeContactForm(ContactFactory.positiveContact());
+        int numberOfContactsAfterAdd=contactsPage.getNumberOfContacts();
+        Assert.assertEquals(numberOfContactsAfterAdd,numberOfContacts+1);
+    }
+    @Test(dataProvider = "dataProviderContactFile", dataProviderClass = Contact_DP.class)
+    public void addNewContactPositiveTestWithDataProvider(Contact contact){
+        addPage.typeContactForm(contact);
         int numberOfContactsAfterAdd=contactsPage.getNumberOfContacts();
         Assert.assertEquals(numberOfContactsAfterAdd,numberOfContacts+1);
     }
