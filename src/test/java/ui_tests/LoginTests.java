@@ -13,15 +13,15 @@ import utils.TestNGListener;
 
 @Listeners(TestNGListener.class)
 public class LoginTests extends ApplicationManager {
-    @Test//(retryAnalyzer = RetryAnalyzer.class)
+    @Test(groups = {"smoke","user"})//(retryAnalyzer = RetryAnalyzer.class)
     public void loginPositiveTest(){
         HomePage homePage=new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
         LoginPage loginPage=new LoginPage(getDriver());
-        loginPage.typeLoginForm("a@mail.ru","Password123");
+        loginPage.typeLoginForm("a@mail.ru","Password123!");
         Assert.assertTrue(new ContactsPage(getDriver()).isTextContactsPresent("CONTACTS"));
     }
-    @Test
+    @Test(groups = "negative")
     public void loginNegativeTests_wrongPassword(){
         User user =new User("a@mail.ru","password123!");
         HomePage homePage=new HomePage(getDriver());

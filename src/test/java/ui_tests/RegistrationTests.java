@@ -15,18 +15,18 @@ import static utils.UserFactory.*;
 @Listeners(TestNGListener.class)
 public class RegistrationTests extends ApplicationManager {
     LoginPage loginPage;
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToRegPage(){
         new HomePage(getDriver()).clickBtnLoginHeader();
         loginPage=new LoginPage(getDriver());
     }
-    @Test
+    @Test(groups = {"smoke","user"})
     public void registrationPositiveTests(){
         User user=positiveUser();
         loginPage.typeRegForm(user);
         Assert.assertTrue(new ContactsPage(getDriver()).isTextNoContactsPresent("No Contacts here!"));
     }
-    @Test
+    @Test(groups = "negative")
     public void registrationNegativeTests_wrongEmail(){
         User user=positiveUser();
         user.setUsername("wrong email");

@@ -1,0 +1,3 @@
+cd C:\QA-49\intellij IDEA\QA_49_PhoneBook>
+.\gradlew clean smoke_tests run group smoke rest
+.\gradlew clean smoke_contact_tests run group smoke_contact rest

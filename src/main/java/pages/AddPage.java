@@ -37,8 +37,6 @@ public class AddPage extends BasePage{
         inputAddress.sendKeys(contact.getAddress());
         inputDescription.sendKeys(contact.getDescription());
         btnSave.click();
-
-
     }
 
 }
